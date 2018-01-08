@@ -1,10 +1,8 @@
-var LedMatrix = require("node-rpi-rgb-led-matrix");
-var matrix = new LedMatrix();
-var helper = require("./helper");
+const LedMatrix = require("node-rpi-rgb-led-matrix");
+const matrix = new LedMatrix();
+const helper = require("./helper");
 
-var tempGrid = [];
-
-var LedDisplay = function() {
+const LedDisplay = function() {
     this.dim = {
         w: matrix.getWidth(),
         h: matrix.getHeight()
@@ -14,7 +12,7 @@ var LedDisplay = function() {
         for (let i = 0; i < this.dim.w * this.dim.h; i++) {
             let x = i % this.dim.w;
             let y = Math.floor(i / this.dim.h);
-            tempGrid.push(new Led(x, y, 0, 0, 0));
+            this.grid.push(new Led(x, y, 0, 0, 0));
         }
     };
     this.updatePixel = function(xCord, yCord, r, g, b) {
@@ -35,16 +33,16 @@ var LedDisplay = function() {
         }
 
         // Check for out of range pixels
-        if ((target <= -1 || target >= tempGrid.length) && safeToDraw) {
+        if ((target <= -1 || target >= this.grid.length) && safeToDraw) {
             // throw new Error(`Pixel value [${target}] out of range`);
             // safeToDraw = false;
         }
 
         // assign colors
         if (safeToDraw) {
-            tempGrid[target].color.r = r;
-            tempGrid[target].color.g = g;
-            tempGrid[target].color.b = b;
+            this.grid[target].color.r = r;
+            this.grid[target].color.g = g;
+            this.grid[target].color.b = b;
         }
     };
     this.drawRect = function(x, y, w, h, r, g, b) {
@@ -59,13 +57,13 @@ var LedDisplay = function() {
         }
     };
     this.paint = function() {
-        for (let i = 0; i < tempGrid.length; i++) {
+        for (let i = 0; i < this.grid.length; i++) {
             matrix.setPixel(
-                tempGrid[i].cord.x,
-                tempGrid[i].cord.y,
-                tempGrid[i].color.r,
-                tempGrid[i].color.g,
-                tempGrid[i].color.b
+                this.grid[i].cord.x,
+                this.grid[i].cord.y,
+                this.grid[i].color.r,
+                this.grid[i].color.g,
+                this.grid[i].color.b
             );
         }
     };

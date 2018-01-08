@@ -1,5 +1,3 @@
-var LedDisplay = require("./display");
-
 function PongBall(display, x, y, size, velX, velY, r, g, b) {
     this.x = x;
     this.y = y;
@@ -34,7 +32,6 @@ function PongBall(display, x, y, size, velX, velY, r, g, b) {
         this.y += this.vel.y;
     };
     this.draw = function() {
-        display.clear();
         display.drawRect(
             this.x,
             this.y,

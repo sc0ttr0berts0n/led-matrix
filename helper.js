@@ -1,4 +1,4 @@
-var helper = function() {};
+const helper = function() {};
 
 helper.prototype.ensureInteger = array => {
     for (let i = 0; i < array.length; i++) {
