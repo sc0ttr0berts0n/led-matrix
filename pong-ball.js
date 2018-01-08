@@ -1,7 +1,6 @@
 var LedDisplay = require("./display");
-var display = new LedDisplay();
 
-function PongBall(x, y, size, velX, velY, r, g, b) {
+function PongBall(display, x, y, size, velX, velY, r, g, b) {
     this.x = x;
     this.y = y;
     this.size = size;

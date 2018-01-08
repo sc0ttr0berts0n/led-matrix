@@ -2,7 +2,7 @@ var LedDisplay = require("./display");
 var display = new LedDisplay();
 
 var PongBall = require("./pong-ball");
-var ball = new PongBall(2, 2, 2, -1.2, 1, 128, 64, 128);
+var ball = new PongBall(display, 2, 2, 2, -1.2, 1, 128, 64, 128);
 
 // var onExit = require("./on-exit");
 
