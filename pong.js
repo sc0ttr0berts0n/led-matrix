@@ -1,10 +1,17 @@
-var LedDisplay = require("./display");
-var display = new LedDisplay();
+const LedDisplay = require("./display");
+const display = new LedDisplay();
 
-var PongBall = require("./pong-ball");
-var ball = new PongBall(display, 2, 2, 2, -1.2, 1, 128, 64, 128);
+const PongBall = require("./pong-ball");
+const ball = new PongBall(display, 2, 2, 2, -1.2, 1, 32, 16, 32);
 
-// var onExit = require("./on-exit");
+const Paddle = require("./paddle");
+const leftPaddle = new Paddle(display, 0, 0, 2, 8);
+
+function drawMidfieldLine() {
+    for (let i = 0; i < display.dim.h; i = i + 4) {
+        display.drawRect(15, i, 2, 2, 4, 2, 4);
+    }
+}
 
 function init() {
     display.init();
@@ -12,6 +19,8 @@ function init() {
 }
 
 function animate() {
+    display.clear();
+    drawMidfieldLine();
     ball.update();
     display.paint();
 }
