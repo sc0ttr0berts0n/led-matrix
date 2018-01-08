@@ -57,8 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
-<<<<<<< HEAD
 # Custom
 .AppleDouble/
-=======
->>>>>>> db5e47a4ce2fbf1279dd6675e73cee7c2b7feed3
