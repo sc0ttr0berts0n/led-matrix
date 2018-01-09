@@ -1,11 +1,13 @@
 {
-  "optionalDependencies": {
-    "node-rpi-rgb-led-matrix": "^0.1.0"
-  },
-  "dependencies": {
-    "chalk": "^2.3.0",
-    "optional-require": "^1.0.0",
-    "single-line-log": "^1.1.2",
-    "yargs": "^10.1.1"
-  }
+    "name": "led-matrix",
+    "version": "0.1",
+    "optionalDependencies": {
+        "node-rpi-rgb-led-matrix": "^0.1.0"
+    },
+    "dependencies": {
+        "chalk": "^2.3.0",
+        "optional-require": "^1.0.0",
+        "single-line-log": "^1.1.2",
+        "yargs": "^10.1.1"
+    }
 }

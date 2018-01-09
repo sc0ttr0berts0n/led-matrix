@@ -1,5 +1,5 @@
-var LedDisplay = require("./display");
-var onExit = require("./on-exit");
+var LedDisplay = require('./display');
+var onExit = require('./on-exit');
 
 var display = new LedDisplay();
 
