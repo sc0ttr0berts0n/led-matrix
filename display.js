@@ -56,7 +56,7 @@ const LedDisplay = function() {
             }
         }
     };
-    this.paint = function() {
+    this.refresh = function() {
         for (let i = 0; i < this.grid.length; i++) {
             matrix.setPixel(
                 this.grid[i].cord.x,

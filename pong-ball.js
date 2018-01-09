@@ -13,7 +13,7 @@ function PongBall(display, x, y, size, velX, velY, r, g, b) {
     };
     this.move = function() {
         // right edge detection
-        if (this.x + this.size >= display.dim.w) {
+        if (this.x + this.size >= display.dim.w - 2) {
             this.vel.x = -this.vel.x;
         }
         // bottom edge detection
@@ -21,7 +21,7 @@ function PongBall(display, x, y, size, velX, velY, r, g, b) {
             this.vel.y = -this.vel.y;
         }
         // left edge detection
-        if (this.x <= 0) {
+        if (this.x <= 0 + 2) {
             this.vel.x = -this.vel.x;
         }
         // top edge detection
