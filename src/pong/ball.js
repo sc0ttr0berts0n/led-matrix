@@ -21,10 +21,11 @@ function PongBall(game, x, y, size, velMax, r, g, b) {
         this.x = game.display.dim.w / 2 - 1 + Math.random();
         this.y = helper.randInt(0, game.display.dim.h - 1);
 
-        // throw ball randomly on one direction or the other
-        let randomFromMax = Math.random() * (this.vel.max * 2) - this.vel.max;
-        this.vel.x = randomFromMax;
-        this.vel.y = randomFromMax;
+        // throw ball at fixed speed in random direction
+        let angle = Math.random() * (Math.PI * 2);
+        this.vel.x = this.vel.max * Math.cos(angle);
+        this.vel.y = this.vel.max * Math.sin(angle);
+
     };
     this.move = function() {
         // right edge detection

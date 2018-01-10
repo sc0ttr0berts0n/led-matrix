@@ -23,7 +23,7 @@ function Game(color, minWidth, tickRate) {
         this.default.minWidth,
         this.default.minWidth,
         this.default.minWidth,
-        2,
+        0.5,
         this.default.color.r,
         this.default.color.g,
         this.default.color.b
