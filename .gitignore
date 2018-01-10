@@ -59,8 +59,11 @@ typings/
 
 # Custom
 .AppleDouble/
-<<<<<<< HEAD
-.vscode/
-=======
-.vicode/
->>>>>>> b905df18bab11614fcc240d40a8f75f158f027c1
+/.vscode/
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
