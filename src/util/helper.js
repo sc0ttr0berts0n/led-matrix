@@ -20,4 +20,8 @@ helper.prototype.randColorValue = () => {
     return randInt(255);
 };
 
+helper.prototype.toRadians = degrees => {
+    return degrees * Math.PI / 180;
+};
+
 module.exports = new helper();
