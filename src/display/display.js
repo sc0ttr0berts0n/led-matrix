@@ -1,8 +1,7 @@
 const helper = require('../util/helper');
-const optionalRequire = require('optional-require')(require);
 const yargs = require('yargs');
 const LedMatrixSimulator = require('../display/led-matrix-simulator');
-var LedMatrix = require('node-rpi-rgb-led-matrix');
+var LedMatrix = !!yargs.argv.simulator ? null : require('node-rpi-rgb-led-matrix');
 var matrix = null;
 
 // Determine whether to go out to the LED Panel or the simulator
