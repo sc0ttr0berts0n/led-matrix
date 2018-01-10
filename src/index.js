@@ -6,49 +6,44 @@ esversion: 6
 const LedDisplay = require('./display/display');
 const PongBall = require('./pong/ball');
 const Paddle = require('./pong/paddle');
+const Color = require('./util/color');
+const Vec2 = require('./util/vec2');
 const yargs = require('yargs');
 
-function Game(color, minWidth, tickRate) {
+function Game(defaultColor, minWidth, tickRate) {
     const self = this;
     this.animationLoop = null;
     this.default = {
-        color: color,
+        color: new Color(defaultColor),
         minWidth: minWidth,
-        tickRate: tickRate
+        tickRate: tickRate,
+        simScaleFactor: 2,
     };
 
     this.display = new LedDisplay();
     this.ball = new PongBall(
         this,
         this.default.minWidth,
-        this.default.minWidth,
-        this.default.minWidth,
         0.5,
-        this.default.color.r,
-        this.default.color.g,
-        this.default.color.b
+        this.default.color
     );
     this.leftPaddle = new Paddle(
+        this,
         this.ball,
-        this.display,
         0,
         0,
         this.default.minWidth,
         this.default.minWidth * 4,
-        this.default.color.r,
-        this.default.color.g,
-        this.default.color.b
+        this.default.color
     );
     this.rightPaddle = new Paddle(
+        this,
         this.ball,
-        this.display,
         this.display.dim.w - this.default.minWidth,
         0,
         this.default.minWidth,
         this.default.minWidth * 4,
-        this.default.color.r,
-        this.default.color.g,
-        this.default.color.b
+        this.default.color
     );
     this.init = function() {
         this.display.init();
@@ -88,8 +83,10 @@ function Game(color, minWidth, tickRate) {
 let pong = null;
 
 if (!!yargs.argv.simulator) {
-    pong = new Game({ r: 32, g: 16, b: 32 }, 1, 30);
+    // simulator params
+    pong = new Game({ r: 32, g: 16, b: 32 }, 2, 30);
 } else {
+    //
     pong = new Game({ r: 32, g: 16, b: 32 }, 2, 30);
 }
 pong.init();

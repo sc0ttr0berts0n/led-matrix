@@ -6,7 +6,7 @@ var matrix = null;
 
 // Determine whether to go out to the LED Panel or the simulator
 if (!!yargs.argv.simulator) {
-    matrix = new LedMatrixSimulator(16, 16);
+    matrix = new LedMatrixSimulator(32,32);
 } else {
     matrix = new LedMatrix();
 }
