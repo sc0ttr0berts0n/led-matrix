@@ -1,4 +1,6 @@
-function PongBall(display, x, y, size, velX, velY, r, g, b) {
+const helper = require('../util/helper');
+
+function PongBall(game, x, y, size, velMax, r, g, b) {
     this.x = x;
     this.y = y;
     this.size = size;
@@ -8,20 +10,33 @@ function PongBall(display, x, y, size, velX, velY, r, g, b) {
         g: g
     };
     this.vel = {
-        x: velX,
-        y: velY
+        x: null,
+        y: null,
+        max: velMax
+    };
+    this.init = function() {
+        this.reset();
+    };
+    this.reset = function() {
+        this.x = game.display.dim.w / 2 - 1 + Math.random();
+        this.y = helper.randInt(0, game.display.dim.h - 1);
+
+        // throw ball randomly on one direction or the other
+        let randomFromMax = Math.random() * (this.vel.max * 2) - this.vel.max;
+        this.vel.x = randomFromMax;
+        this.vel.y = randomFromMax;
     };
     this.move = function() {
         // right edge detection
-        if (this.x + this.size >= display.dim.w - 2) {
+        if (this.x + this.size >= game.display.dim.w - game.default.minWidth) {
             this.vel.x = -this.vel.x;
         }
         // bottom edge detection
-        if (this.y + this.size >= display.dim.w) {
+        if (this.y + this.size >= game.display.dim.w) {
             this.vel.y = -this.vel.y;
         }
         // left edge detection
-        if (this.x <= 0 + 2) {
+        if (this.x <= game.default.minWidth) {
             this.vel.x = -this.vel.x;
         }
         // top edge detection
@@ -32,7 +47,7 @@ function PongBall(display, x, y, size, velX, velY, r, g, b) {
         this.y += this.vel.y;
     };
     this.draw = function() {
-        display.drawRect(
+        game.display.drawRect(
             this.x,
             this.y,
             this.size,

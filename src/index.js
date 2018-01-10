@@ -3,30 +3,27 @@ node: true,
 esversion: 6
 */
 
-const LedDisplay = require('./display');
-const PongBall = require('./pong-ball');
-const Paddle = require('./paddle');
+const LedDisplay = require('./display/display');
+const PongBall = require('./pong/ball');
+const Paddle = require('./pong/paddle');
+const yargs = require('yargs');
 
-function Game() {
+function Game(color, minWidth, tickRate) {
     const self = this;
     this.animationLoop = null;
     this.default = {
-        color: {
-            r: 32,
-            g: 16,
-            b: 32
-        },
-        minWidth: 2
+        color: color,
+        minWidth: minWidth,
+        tickRate: tickRate
     };
 
     this.display = new LedDisplay();
     this.ball = new PongBall(
-        this.display,
+        this,
         this.default.minWidth,
         this.default.minWidth,
         this.default.minWidth,
-        -1.2,
-        1,
+        2,
         this.default.color.r,
         this.default.color.g,
         this.default.color.b
@@ -37,7 +34,7 @@ function Game() {
         0,
         0,
         this.default.minWidth,
-        8,
+        this.default.minWidth * 4,
         this.default.color.r,
         this.default.color.g,
         this.default.color.b
@@ -48,14 +45,18 @@ function Game() {
         this.display.dim.w - this.default.minWidth,
         0,
         this.default.minWidth,
-        8,
+        this.default.minWidth * 4,
         this.default.color.r,
         this.default.color.g,
         this.default.color.b
     );
     this.init = function() {
         this.display.init();
-        this.animationLoop = setInterval(this.animate, 1000 / 24);
+        this.ball.init();
+        this.animationLoop = setInterval(
+            this.animate,
+            1000 / this.default.tickRate
+        );
     };
     this.midfieldLine = {
         width: this.default.minWidth,
@@ -84,6 +85,11 @@ function Game() {
     };
 }
 
-const pong = new Game();
+let pong = null;
 
+if (!!yargs.argv.simulator) {
+    pong = new Game({ r: 32, g: 16, b: 32 }, 1, 30);
+} else {
+    pong = new Game({ r: 32, g: 16, b: 32 }, 2, 30);
+}
 pong.init();

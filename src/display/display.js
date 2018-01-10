@@ -1,23 +1,28 @@
+const helper = require('../util/helper');
 const optionalRequire = require('optional-require')(require);
+const yargs = require('yargs');
+const LedMatrixSimulator = require('../display/led-matrix-simulator');
+var LedMatrix = require('node-rpi-rgb-led-matrix');
+var matrix = null;
 
-const LedMatrix = optionalRequire.resolve(
-    'node-rpi-rgb-led-matrix',
-    'No LED Panel, use --simulator for simulator'
-);
-const LedMatrixSimulator = require('./led-matrix-simulator');
-const matrix =
-    typeof LedMatrix === 'function'
-        ? new LedMatrix()
-        : new LedMatrixSimulator(32, 32);
-const helper = require('./helper');
+// Determine whether to go out to the LED Panel or the simulator
+if (!!yargs.argv.simulator) {
+    matrix = new LedMatrixSimulator(16, 16);
+} else {
+    matrix = new LedMatrix();
+}
 
 const LedDisplay = function() {
     this.dim = {
         w: matrix.getWidth(),
         h: matrix.getHeight()
     };
-    this.grid = [];
+    this.grid = null;
     this.init = function() {
+        this.reset();
+    };
+    this.reset = function() {
+        this.grid = [];
         for (let i = 0; i < this.dim.w * this.dim.h; i++) {
             let x = i % this.dim.w;
             let y = Math.floor(i / this.dim.h);
