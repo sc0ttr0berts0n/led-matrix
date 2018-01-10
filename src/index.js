@@ -17,7 +17,7 @@ function Game(defaultColor, minWidth, tickRate) {
         color: new Color(defaultColor),
         minWidth: minWidth,
         tickRate: tickRate,
-        simScaleFactor: 2,
+        simScaleFactor: 2
     };
 
     this.display = new LedDisplay();
@@ -84,9 +84,9 @@ let pong = null;
 
 if (!!yargs.argv.simulator) {
     // simulator params
-    pong = new Game({ r: 32, g: 16, b: 32 }, 2, 30);
+    pong = new Game({ r: 255, g: 255, b: 255 }, 2, 30);
 } else {
-    //
+    // hardware params
     pong = new Game({ r: 32, g: 16, b: 32 }, 2, 30);
 }
 pong.init();
