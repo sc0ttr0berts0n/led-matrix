@@ -17,14 +17,27 @@ function PongBall(game, size, velMax, color) {
         this.pos.y = helper.randInt(0, game.display.dim.h - 1);
 
         // throw ball at fixed speed in random direction
-        let angle = Math.random() * (Math.PI * 2);
+        let startAngles = [];
+
+        // Generate angles in 15 degree steps
+        for (let i = 0; i <= 360; i = i + 15) {
+            // Dont add angles that would result in x or y being 0
+            if (i % 90 !== 0) {
+                startAngles.push(i);
+            }
+        }
+        // Pick a random Angle from the array
+        let randomAngle = helper.randInt(0, startAngles.length - 1);
+        let angle = helper.toRadians(startAngles[randomAngle]);
         this.vel.x = this.speed * Math.cos(angle);
         this.vel.y = this.speed * Math.sin(angle);
-
     };
     this.move = function() {
         // right edge detection
-        if (this.pos.x + this.size >= game.display.dim.w - game.default.minWidth) {
+        if (
+            this.pos.x + this.size >=
+            game.display.dim.w - game.default.minWidth
+        ) {
             this.vel.x = -this.vel.x;
         }
         // bottom edge detection
